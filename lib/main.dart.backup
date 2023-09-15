@@ -1,0 +1,698 @@
+import 'dart:ui';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+void main() => runApp(const NikeLandingApp());
+
+class NikeLandingApp extends StatelessWidget {
+  const NikeLandingApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final dark = ColorScheme.fromSeed(
+      seedColor: Colors.grey.shade800,
+      brightness: Brightness.dark,
+    );
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Nike Air Max – Concept',
+      theme: ThemeData(
+        colorScheme: dark,
+        useMaterial3: true,
+        textTheme: GoogleFonts.interTightTextTheme(ThemeData.dark().textTheme),
+      ),
+      home: const NikeHome(),
+    );
+  }
+}
+
+class ShoeData {
+  final String title;
+  final String subtitle;
+  final int price;
+  final String asset;
+  final String cardAsset;
+  final String description;
+  
+  ShoeData({
+    required this.title,
+    required this.subtitle,
+    required this.price,
+    required this.asset,
+    required this.cardAsset,
+    required this.description,
+  });
+}
+
+class NikeHome extends StatefulWidget {
+  const NikeHome({super.key});
+
+  @override
+  State<NikeHome> createState() => _NikeHomeState();
+}
+
+class _NikeHomeState extends State<NikeHome> {
+  int selectedShoeIndex = 0;
+
+  final shoeData = <ShoeData>[
+    ShoeData(
+      title: 'NIKE DUNK LOW RETRO',
+      subtitle: 'WHITE/BLACK',
+      price: 16000,
+      asset: 'assets/hero_shoe.png',
+      cardAsset: 'assets/card_shoe_1.png',
+      description: 'Free shipping • 30-day return',
+    ),
+    ShoeData(
+      title: 'NIKE AIR HUARACHE',
+      subtitle: 'TRIPLE WHITE',
+      price: 14500,
+      asset: 'assets/hero_shoe.png',
+      cardAsset: 'assets/card_shoe_1.png',
+      description: 'Free shipping • 30-day return',
+    ),
+    ShoeData(
+      title: 'NIKE AIR MAX 270',
+      subtitle: 'BLACK/WHITE',
+      price: 15200,
+      asset: 'assets/hero_shoe.png',
+      cardAsset: 'assets/card_shoe_2.png',
+      description: 'Free shipping • 30-day return',
+    ),
+    ShoeData(
+      title: 'NIKE AIR ZOOM VOMERO',
+      subtitle: 'NAVY/SILVER',
+      price: 11000,
+      asset: 'assets/hero_shoe.png',
+      cardAsset: 'assets/card_shoe_3.png',
+      description: 'Free shipping • 30-day return',
+    ),
+    ShoeData(
+      title: 'NIKE AIR ONE TAKE',
+      subtitle: 'COURT PURPLE',
+      price: 14500,
+      asset: 'assets/hero_shoe.png',
+      cardAsset: 'assets/card_shoe_4.png',
+      description: 'Free shipping • 30-day return',
+    ),
+  ];
+
+  void onShoeSelected(int index) {
+    setState(() {
+      selectedShoeIndex = index;
+    });
+  }
+      description: 'Free shipping • 30-day return',
+    ),
+  ];
+
+  void onShoeSelected(int index) {
+    setState(() {
+      selectedShoeIndex = index;
+    });
+  }age:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+void main() => runApp(const NikeLandingApp());
+
+class NikeLandingApp extends StatelessWidget {
+  const NikeLandingApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final dark = ColorScheme.fromSeed(
+      seedColor: Colors.grey.shade800,
+      brightness: Brightness.dark,
+    );
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Nike Air Max – Concept',
+      theme: ThemeData(
+        colorScheme: dark,
+        useMaterial3: true,
+        textTheme: GoogleFonts.interTightTextTheme(ThemeData.dark().textTheme),
+      ),
+      home: const NikeHome(),
+    );
+  }
+}
+
+class NikeHome extends StatelessWidget {
+  const NikeHome({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFF0F1013),
+      body: Stack(
+        children: [
+          const _RadialBackdrop(),
+          // Removed page-level watermark (it was hidden by opaque hero).
+          SafeArea(
+            child: Column(
+              children: const [
+                _FrostedNavBar(),
+                SizedBox(height: 16),
+                Expanded(child: _HeroArea()),
+                _BottomCarousel(),
+                SizedBox(height: 20),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// ===== NAVBAR =====
+class _FrostedNavBar extends StatelessWidget {
+  const _FrostedNavBar();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 14),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(16),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+          child: Container(
+            height: 64,
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.05),
+              border: Border.all(color: Colors.white.withOpacity(.08)),
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Row(
+              children: [
+                const SizedBox(width: 18),
+                // Nike logo from asset
+                Image.asset(
+                  'assets/nike.png',
+                  width: 28,
+                  height: 16,
+                  fit: BoxFit.contain,
+                  errorBuilder: (_, __, ___) => Container(
+                    width: 28,
+                    height: 16,
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(.3),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: Icon(
+                      Icons.sports,
+                      size: 12,
+                      color: Colors.white.withOpacity(.8),
+                    ),
+                  ),
+                ),
+                const Spacer(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    _NavLink(text: 'MEN'),
+                    SizedBox(width: 40),
+                    _NavLink(text: 'WOMEN'),
+                    SizedBox(width: 40),
+                    _NavLink(text: 'KIDS'),
+                  ],
+                ),
+                const Spacer(),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _NavLink extends StatelessWidget {
+  final String text;
+  const _NavLink({required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 14),
+      child: Text(
+        text,
+        style: GoogleFonts.inter(
+          fontSize: 14,
+          letterSpacing: 1.2,
+          fontWeight: FontWeight.w600,
+          color: Colors.white.withOpacity(.85),
+        ),
+      ),
+    );
+  }
+}
+
+/// ===== HERO =====
+class _HeroArea extends StatelessWidget {
+  const _HeroArea();
+
+  @override
+  Widget build(BuildContext context) {
+    final w = MediaQuery.of(context).size.width;
+    final isWide = w > 1100;
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 14),
+      child: Stack(
+        children: [
+          // Main glass canvas (opaque)
+          Positioned.fill(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(18),
+              child: Container(
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Color(0xFF15171B), Color(0xFF0F1013)],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  ),
+                ),
+              ),
+            ),
+          ),
+
+          // ===== Watermark INSIDE hero (now visible) =====
+          Positioned.fill(
+            child: IgnorePointer(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: Center(
+                  child: FittedBox(
+                    fit: BoxFit.contain,
+                    child: Opacity(
+                      opacity: 0.04, // Decreased opacity for more subtle effect
+                      child: Text(
+                        'NIKE',
+                        style: GoogleFonts.inter(
+                          fontSize: 500,
+                          fontWeight: FontWeight.w900,
+                          letterSpacing: 40.0,
+                          height: 1.0,
+                          color: Colors.white, // Solid white fill
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.visible,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+
+          // Content
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 28),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // LEFT: JUST DO IT.
+                Expanded(
+                  flex: 4,
+                  child: FittedBox(
+                    alignment: Alignment.centerLeft,
+                    child: _JustDoItText(),
+                  ),
+                ),
+
+                // CENTER: Shoe + glow
+                const Expanded(
+                  flex: 6,
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      _GlowHalo(),
+                      _HeroShoe(),
+                    ],
+                  ),
+                ),
+
+                // RIGHT: product meta + price
+                if (isWide)
+                  const Expanded(
+                    flex: 4,
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: _HeroMeta(),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _JustDoItText extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final base = GoogleFonts.interTight(
+      fontWeight: FontWeight.w700,
+      letterSpacing: 2,
+      height: 1.02,
+    );
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('JUST', style: base.copyWith(fontSize: 120, color: Colors.white)),
+        const SizedBox(height: 6),
+        Text('DO', style: base.copyWith(fontSize: 120, color: Colors.white)),
+        const SizedBox(height: 6),
+        Text(
+          'IT.',
+          style: base.copyWith(fontSize: 120, color: Colors.white.withOpacity(.92)),
+        ),
+      ],
+    );
+  }
+}
+
+class _HeroShoe extends StatelessWidget {
+  const _HeroShoe();
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Transform.translate(
+        offset: const Offset(-50, -50), // Shift left by 80 pixels
+        child: Transform.scale(
+          scale: 1.0,
+          child: Transform.rotate(
+            angle: -0.4,
+            child: SizedBox(
+              width: 850,
+              height: 650,
+            child: Image.asset(
+              // FIX: correct asset path
+              'hero_shoe.png',
+              fit: BoxFit.contain,
+              errorBuilder: (_, __, ___) {
+                // Placeholder block if asset not present
+                return Container(
+                  height: 650,
+                  width: 850,
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(.02),
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: Colors.white12),
+                  ),
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Put a transparent PNG at:\nassets/hero_shoe.png\n(Now 1.7x bigger!)',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.white.withOpacity(.6), fontSize: 14),
+                  ),
+                );
+              },
+            ), // Image.asset closing parenthesis
+          ), // SizedBox closing parenthesis
+        ), // Transform.rotate closing parenthesis
+      ), // Transform.scale closing parenthesis
+    ), // Transform.translate closing parenthesis
+    ); // Center closing parenthesis
+  }
+}
+
+class _GlowHalo extends StatelessWidget {
+  const _GlowHalo();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 520,
+      height: 520,
+      decoration: const BoxDecoration(
+        shape: BoxShape.circle,
+        gradient: RadialGradient(
+          colors: [Color(0x3327C1FF), Colors.transparent],
+          stops: [0.0, 1.0],
+        ),
+      ),
+    );
+  }
+}
+
+class _HeroMeta extends StatelessWidget {
+  const _HeroMeta();
+
+  @override
+  Widget build(BuildContext context) {
+    final titleStyle = GoogleFonts.inter(
+      fontSize: 24,
+      fontWeight: FontWeight.w800,
+      letterSpacing: 8.0,
+      color: Colors.white.withOpacity(.95),
+      height: 1.2,
+    );
+    final subtitleStyle = GoogleFonts.inter(
+      fontSize: 20,
+      fontWeight: FontWeight.w600,
+      letterSpacing: 4.0,
+      color: Colors.white.withOpacity(.85),
+    );
+    final priceStyle = GoogleFonts.inter(
+      fontSize: 48,
+      fontWeight: FontWeight.w700,
+      color: Colors.white,
+      letterSpacing: 2.0,
+    );
+    final caption = GoogleFonts.inter(
+      color: Colors.white.withOpacity(.7),
+      fontSize: 14,
+      fontWeight: FontWeight.w400,
+      letterSpacing: 1.0,
+    );
+
+    return Container(
+      padding: const EdgeInsets.all(32),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Colors.white.withOpacity(.08), // Decreased opacity
+            Colors.white.withOpacity(.04), // Decreased opacity
+          ],
+        ),
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(
+          color: Colors.white.withOpacity(.12), // Decreased border opacity
+          width: 1,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(.75),
+            blurRadius: 20,
+            spreadRadius: -4,
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text('NIKE DUNK LOW RETRO', style: titleStyle),
+          const SizedBox(height: 8),
+          Text('₹16000', style: priceStyle),
+          const SizedBox(height: 16),
+          Container(
+            width: 80,
+            height: 3,
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                colors: [Colors.blue, Colors.cyan],
+              ),
+              borderRadius: BorderRadius.circular(2),
+            ),
+          ),
+          const SizedBox(height: 20),
+          Text('Free shipping • 30-day return', style: caption),
+        ],
+      ),
+    );
+  }
+}
+
+/// ===== CAROUSEL =====
+class _BottomCarousel extends StatelessWidget {
+  const _BottomCarousel();
+
+  @override
+  Widget build(BuildContext context) {
+    final items = <_CardData>[
+      _CardData('NIKE AIR\nHUARACHE', 180, 'assets/card_shoe_1.png'),
+      _CardData('NIKE AIR\nAIR MAX 270', 190, 'assets/card_shoe_2.png'),
+      _CardData('NIKE AIR\nZOOM VOMERO', 110, 'assets/card_shoe_3.png'),
+      _CardData('NIKE AIR\nONE TAKE', 180, 'assets/card_shoe_4.png'),
+    ];
+
+    return SizedBox(
+      height: 160,
+      child: Center(
+        child: ListView.separated(
+          scrollDirection: Axis.horizontal,
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          itemCount: items.length,
+          separatorBuilder: (_, __) => const SizedBox(width: 22),
+          itemBuilder: (_, i) => _ProductCard(data: items[i]),
+          physics: const BouncingScrollPhysics(),
+          shrinkWrap: true,
+        ),
+      ),
+    );
+  }
+}
+
+class _CardData {
+  final String title;
+  final int price;
+  final String asset;
+  _CardData(this.title, this.price, this.asset);
+}
+
+class _ProductCard extends StatelessWidget {
+  final _CardData data;
+  const _ProductCard({required this.data});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 280,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(22),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+          child: Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(.06),
+              border: Border.all(color: Colors.white.withOpacity(.08)),
+              borderRadius: BorderRadius.circular(22),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(.35),
+                  offset: const Offset(0, 12),
+                  blurRadius: 30,
+                  spreadRadius: -6,
+                ),
+              ],
+            ),
+            child: Row(
+              children: [
+                // shoe thumb
+                Container(
+                  width: 86,
+                  height: 86,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(18),
+                    gradient: const LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [Color(0xFF23252B), Color(0xFF141518)],
+                    ),
+                  ),
+                  padding: const EdgeInsets.all(8),
+                  child: Image.asset(
+                    data.asset,
+                    fit: BoxFit.contain,
+                    errorBuilder: (_, __, ___) => Icon(
+                      Icons.image_not_supported_outlined,
+                      color: Colors.white.withOpacity(.5),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 14),
+                // meta
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        data.title,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.interTight(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w700,
+                          height: 1.1,
+                          letterSpacing: .5,
+                        ),
+                      ),
+                      const SizedBox(height: 6),
+                      const Text(
+                        // price
+                        '\$',
+                        style: TextStyle(fontSize: 0), // placeholder to keep layout
+                      ),
+                      Text('\$${data.price}',
+                          style: const TextStyle(
+                              fontSize: 12,
+                              letterSpacing: .3,
+                              color: Colors.white70)),
+                      const SizedBox(height: 6),
+                      Row(
+                        children: List.generate(
+                          5,
+                          (i) => Icon(
+                            Icons.star,
+                            size: 12,
+                            color: i < 4
+                                ? Colors.white
+                                : Colors.white.withOpacity(.35),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 8),
+                // add button
+                Container(
+                  width: 28,
+                  height: 28,
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(.1),
+                    shape: BoxShape.circle,
+                    border: Border.all(color: Colors.white.withOpacity(.2)),
+                  ),
+                  child: const Icon(Icons.add, size: 16),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// ===== DECOR / PAINTERS =====
+
+class _RadialBackdrop extends StatelessWidget {
+  const _RadialBackdrop();
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned.fill(
+      child: DecoratedBox(
+        decoration: const BoxDecoration(
+          gradient: RadialGradient(
+            radius: 2.0,
+            center: Alignment(0, -0.6),
+            colors: [Color(0xFF181A1F), Color(0xFF0F1013)],
+          ),
+        ),
+      ),
+    );
+  }
+}
